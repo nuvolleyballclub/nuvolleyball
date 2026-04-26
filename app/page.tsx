@@ -70,6 +70,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* VIDEO */}
+      <section className="py-24 bg-[color:var(--color-surface)]">
+        <div className="container-x">
+          <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)] mb-3">
+            Watch
+          </div>
+          <h2 className="font-display text-3xl md:text-5xl font-bold mb-12 max-w-2xl">
+            See us in action.
+          </h2>
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-black border border-black/5">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/T3gWy7Fy0mM"
+              title="NU Volleyball Club"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* DEPARTMENTS */}
       <section className="py-24">
         <div className="container-x">
