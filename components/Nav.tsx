@@ -3,6 +3,7 @@ import Image from "next/image";
 
 const links = [
   { href: "/about", label: "About" },
+  { href: "/teams", label: "Teams" },
   { href: "/leadership", label: "Leadership" },
   { href: "/tournaments", label: "Tournaments" },
   { href: "/contact", label: "Join & Contact" },
@@ -14,11 +15,11 @@ export default function Nav() {
       <div className="container-x flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/logo.jpg"
+            src="/club-logo.png"
             alt="NU Volleyball Club"
             width={36}
             height={36}
-            className="rounded-full"
+            className="rounded-full bg-[color:var(--color-primary-dark)] p-1"
           />
           <span className="font-display font-bold text-[color:var(--color-ink)] text-lg tracking-tight">
             NU Volleyball Club

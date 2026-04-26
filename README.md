@@ -59,20 +59,17 @@ Here's every section of the file and what it controls:
 
 | Section in file | What it controls on the site |
 |---|---|
-| `name`, `tagline` | Club name and main hero headline |
-| `description` | Main paragraph on home and about pages |
-| `stats` | The 4 numbers on the homepage (followers, posts, etc.) |
-| `achievements` | The 3 trophy cards on home + achievements section |
-| `winStreak` | The 4 match-score cards on home |
-| `partners` | Partner organizations list on About page |
-| `venue` | "Home venue" info on About page |
-| `leadership` | President + VP cards on Leadership page |
-| `tournaments.hosted` | Tournaments you host (Grand Tournament, 243, etc.) |
-| `tournaments.competed` | Tournaments you compete in + results |
-| `dreamTeam` | Dream Team awards on Tournaments page |
-| `tryouts` | Tryout requirements on Contact page |
-| `clubRoles` | Non-player roles list on Contact page |
-| `contact` | All contact info in the footer and contact page |
+| `name`, `shortName`, `university` | Club name in nav, footer, hero |
+| `mission`, `about` | Main paragraphs on home and About pages |
+| `stats` | The 4 numbers on the homepage strip |
+| `departments` | The 3 department cards (Event, PR, HR) on home + About + Contact |
+| `leadership` | The 5 current board cards on Leadership page |
+| `presidents` | Line of presidents on Leadership page (past + current + next) |
+| `coaches` | Coach cards on Teams page + previewed on home |
+| `rosters.men`, `rosters.women` | Player rosters on Teams page |
+| `events` | The 3 tournament cards on home + Tournaments page |
+| `sponsors` | Sponsor list on About page + Tournaments page |
+| `contact` | All contact info in the footer and Contact page |
 | `gallery` | Which photos show on the homepage gallery |
 
 ### Example: updating a stat
@@ -80,41 +77,55 @@ Here's every section of the file and what it controls:
 Find this line in the file:
 
 ```
-{ value: "1,002", label: "Instagram followers" },
+{ value: "20", label: "Active members" },
 ```
 
-Change `1,002` to whatever the new number is:
+Change `20` to whatever the new number is:
 
 ```
-{ value: "1,450", label: "Instagram followers" },
+{ value: "24", label: "Active members" },
 ```
 
 Commit. Done.
 
-### Example: adding a new achievement
+### Example: adding a player to the roster
 
-Find the `achievements` section. It looks like this:
-
-```
-achievements: [
-  { title: "...", description: "...", year: "..." },
-  { title: "...", description: "...", year: "..." },
-  { title: "...", description: "...", year: "..." },
-],
-```
-
-To add a 4th achievement, add a new line:
+Find the `rosters.men` (or `rosters.women`) section. It looks like this:
 
 ```
-achievements: [
-  { title: "...", description: "...", year: "..." },
-  { title: "...", description: "...", year: "..." },
-  { title: "...", description: "...", year: "..." },
-  { title: "New Trophy", description: "What happened.", year: "2026" },
-],
+rosters: {
+  men: [
+    { name: "Karzhaubaev Anuar", position: "Outside Hitter", captain: true },
+    { name: "Alimkhan Barzhaksy", position: "Outside Hitter" },
+    ...
+  ],
 ```
 
-Make sure the comma after the last `}` is there. Commit. Done.
+To add a new player, add a new line:
+
+```
+{ name: "New Player Name", position: "Setter" },
+```
+
+Positions: `Setter`, `Outside Hitter`, `Opposite Hitter`, `Middle Blocker`, `Libero`.
+Add `captain: true` only to the team captain. Make sure the comma after the last `}`
+in the list stays. Commit. Done.
+
+### Example: adding a new event
+
+Find the `events` section and add a new entry:
+
+```
+{
+  name: "Tournament Name",
+  dates: "Month DD–DD, YYYY",
+  venue: "NU Sports Centre",
+  description: "Short description.",
+},
+```
+
+`time` is optional — include it if the event has a fixed time slot
+(e.g. `time: "10:00–18:00"`).
 
 ---
 
@@ -143,13 +154,15 @@ All photos are in the `public/photos/` folder.
 - Upload your new logo to `public/` (not `public/photos/`) as `logo.jpg`
 - Or add a transparent PNG as `logo.png` and update `components/Nav.tsx`
 
-### Replace leadership photos
+### Add leadership photos (optional)
 
-Upload to `public/photos/`:
-- `leader-president.jpg` for the President
-- `leader-vp.jpg` for the Vice President
+The current Leadership page lists names and roles only. If you want to add
+portrait photos in the future:
 
-The Leadership page will pick them up automatically.
+1. Upload portraits to `public/photos/` (e.g. `leader-altynay.jpg`)
+2. Add a `photo: "/photos/leader-altynay.jpg"` line to the matching entry in
+   the `leadership` array
+3. Update `app/leadership/page.tsx` to render the photo (ask a developer)
 
 ---
 
@@ -157,12 +170,16 @@ The Leadership page will pick them up automatically.
 
 | I want to… | Where to edit |
 |---|---|
-| Change my club's mission text | `content/club.ts` → `description` |
-| Update Instagram follower count | `content/club.ts` → `stats` |
-| Add a new tournament win | `content/club.ts` → `achievements` or `tournaments.competed` |
-| Change Telegram or email | `content/club.ts` → `contact` |
+| Change the club mission | `content/club.ts` → `mission` |
+| Update a stat number | `content/club.ts` → `stats` |
+| Add or rename a department head | `content/club.ts` → `departments` |
 | Add a new leadership member | `content/club.ts` → `leadership` |
-| Update tryout requirements | `content/club.ts` → `tryouts` |
+| Record the next president | `content/club.ts` → `presidents` |
+| Update a coach | `content/club.ts` → `coaches` |
+| Add or remove a player | `content/club.ts` → `rosters.men` / `rosters.women` |
+| Add a new tournament / event | `content/club.ts` → `events` |
+| Add or remove a sponsor | `content/club.ts` → `sponsors` |
+| Change Telegram, Instagram, or email | `content/club.ts` → `contact` |
 | Replace a photo | Upload to `public/photos/` with same name |
 | Add more photos to homepage | Upload + add to `gallery` list |
 
@@ -243,7 +260,7 @@ Stack:
 - Deployed on Vercel, source on GitHub, static site (no database)
 
 Main folders:
-- `app/` — the pages (home, about, leadership, tournaments, contact)
+- `app/` — the pages (home, about, teams, leadership, tournaments, contact)
 - `components/` — shared pieces (Nav, Footer)
 - `content/club.ts` — **all text content**
 - `public/` — images, logo

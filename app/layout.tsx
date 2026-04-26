@@ -9,11 +9,11 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: `${club.name} — ${club.tagline}`,
-  description: club.description,
+  title: `${club.name} — ${club.university}`,
+  description: club.mission,
   openGraph: {
     title: club.name,
-    description: club.tagline,
+    description: club.mission,
     type: "website",
   },
 };

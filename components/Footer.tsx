@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="font-display font-bold text-white text-xl">
             {club.name}
           </div>
-          <p className="mt-3 text-sm text-white/60 max-w-xs">{club.tagline}</p>
+          <p className="mt-3 text-sm text-white/60 max-w-xs">{club.mission}</p>
         </div>
         <div>
           <div className="text-sm uppercase tracking-widest text-white/40 mb-4">
@@ -19,6 +19,11 @@ export default function Footer() {
             <li>
               <Link href="/about" className="hover:text-white">
                 About
+              </Link>
+            </li>
+            <li>
+              <Link href="/teams" className="hover:text-white">
+                Teams
               </Link>
             </li>
             <li>
@@ -64,7 +69,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="container-x py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/40">
           <div>© {new Date().getFullYear()} {club.name}. {club.university}.</div>
-          <div>{club.venue.location} · {club.venue.name}</div>
+          <div>{club.shortName}</div>
         </div>
       </div>
     </footer>

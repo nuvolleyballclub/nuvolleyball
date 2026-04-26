@@ -21,10 +21,10 @@ export default function Home() {
               {club.university}
             </div>
             <h1 className="font-display text-5xl md:text-7xl font-bold leading-[1.05]">
-              {club.tagline}.
+              More than a sports team.
             </h1>
             <p className="mt-8 text-lg md:text-xl text-white/75 max-w-2xl leading-relaxed">
-              {club.description}
+              {club.mission}
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
@@ -43,12 +43,12 @@ export default function Home() {
           </div>
           <div className="absolute -right-20 md:right-10 bottom-0 translate-y-8 md:translate-y-0 opacity-60 md:opacity-100 pointer-events-none">
             <Image
-              src="/logo.jpg"
+              src={club.logo}
               alt=""
               width={520}
               height={520}
               priority
-              className="w-[320px] md:w-[480px] h-auto rounded-full shadow-2xl"
+              className="w-[320px] md:w-[480px] h-auto"
             />
           </div>
         </div>
@@ -70,33 +70,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ACHIEVEMENTS */}
+      {/* DEPARTMENTS */}
       <section className="py-24">
         <div className="container-x">
           <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
             <div>
               <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)] mb-3">
-                Latest milestones
+                How the club runs
               </div>
               <h2 className="font-display text-3xl md:text-5xl font-bold max-w-2xl">
-                A season of silverware and recognition.
+                Three departments. One club.
               </h2>
             </div>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {club.achievements.map((a) => (
+            {club.departments.map((d) => (
               <article
-                key={a.title}
+                key={d.name}
                 className="bg-white p-8 rounded-2xl border border-black/5 hover:shadow-xl transition-shadow"
               >
                 <div className="text-xs font-mono text-[color:var(--color-accent-dark)] mb-4">
-                  {a.year}
+                  Head: {d.head}
                 </div>
-                <h3 className="font-display text-xl font-bold mb-3 leading-snug">
-                  {a.title}
+                <h3 className="font-display text-2xl font-bold mb-3 leading-snug">
+                  {d.name}
                 </h3>
                 <p className="text-sm text-[color:var(--color-muted)] leading-relaxed">
-                  {a.description}
+                  {d.description}
                 </p>
               </article>
             ))}
@@ -104,54 +104,157 @@ export default function Home() {
         </div>
       </section>
 
-      {/* WIN STREAK */}
+      {/* TOURNAMENTS */}
       <section className="bg-[color:var(--color-primary-dark)] text-white py-20">
         <div className="container-x">
-          <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)] mb-3">
-            2025–26 season
-          </div>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-12 max-w-3xl">
-            Four friendlies. Four clean sweeps.
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {club.winStreak.map((w) => (
-              <div
-                key={w.opponent}
-                className="rounded-2xl bg-white/5 border border-white/10 p-6 text-center"
-              >
-                <div className="font-display text-4xl font-bold text-[color:var(--color-accent)]">
-                  {w.score}
-                </div>
-                <div className="mt-2 text-sm text-white/60">vs {w.opponent}</div>
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
+            <div>
+              <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)] mb-3">
+                2025–2026 season
               </div>
+              <h2 className="font-display text-3xl md:text-5xl font-bold max-w-3xl">
+                Tournaments we host.
+              </h2>
+            </div>
+            <Link
+              href="/tournaments"
+              className="text-sm text-[color:var(--color-accent)] hover:underline"
+            >
+              See all →
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {club.tournaments.hosted.slice(0, 3).map((t) => (
+              <article
+                key={t.name}
+                className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden flex flex-col"
+              >
+                {t.poster ? (
+                  <div className="relative aspect-[3/4] bg-black/30">
+                    <Image
+                      src={t.poster}
+                      alt={t.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[3/4] bg-gradient-to-br from-[color:var(--color-primary)] to-[color:var(--color-primary-dark)] flex items-center justify-center p-8">
+                    <div className="text-center">
+                      <div className="font-display font-bold text-xl text-[color:var(--color-accent)] mb-2">
+                        {t.dates}
+                      </div>
+                      <div className="text-xs uppercase tracking-[0.2em] text-white/40">
+                        Hosted by NUVC
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div className="p-6">
+                  <div className="text-xs font-mono text-[color:var(--color-accent)] mb-2">
+                    {t.dates}
+                  </div>
+                  <h3 className="font-display text-lg font-bold leading-snug mb-2">
+                    {t.name}
+                  </h3>
+                  <div className="text-sm text-white/60">{t.venue}</div>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* GALLERY PREVIEW */}
+      {/* TEAMS PREVIEW */}
       <section className="py-24">
         <div className="container-x">
-          <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)] mb-3">
-            On the court
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
+            <div>
+              <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)] mb-3">
+                On the court
+              </div>
+              <h2 className="font-display text-3xl md:text-5xl font-bold max-w-2xl">
+                Our university teams.
+              </h2>
+            </div>
+            <Link
+              href="/teams"
+              className="text-sm text-[color:var(--color-primary)] hover:underline"
+            >
+              Full roster →
+            </Link>
           </div>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-12 max-w-2xl">
-            Moments from the season.
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { team: "Men's team", coach: club.coaches.find((c) => c.team.includes("Men")), roster: club.rosters.men, photo: club.rosters.groupPhotos.men },
+              { team: "Women's team", coach: club.coaches.find((c) => c.team.includes("Women")), roster: club.rosters.women, photo: club.rosters.groupPhotos.women },
+            ].map((t) => {
+              const captain = t.roster.find((p) => p.captain);
+              return (
+                <article
+                  key={t.team}
+                  className="rounded-2xl border border-black/5 bg-white overflow-hidden"
+                >
+                  <div className="relative aspect-[16/10] bg-[color:var(--color-primary-dark)]">
+                    <Image
+                      src={t.photo}
+                      alt={`${t.team} group photo`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div className="p-8">
+                    <div className="text-xs uppercase tracking-[0.2em] text-[color:var(--color-accent-dark)] mb-3">
+                      {t.team}
+                    </div>
+                    <h3 className="font-display text-2xl font-bold mb-1">
+                      {t.roster.length} athletes
+                    </h3>
+                    <div className="text-sm text-[color:var(--color-muted)] mb-6">
+                      Coach: {t.coach?.name}
+                    </div>
+                    {captain && (
+                      <div className="pt-4 border-t border-black/5 text-sm">
+                        <span className="text-[color:var(--color-muted)]">Captain</span>
+                        <div className="font-display font-bold mt-1">
+                          {captain.name}
+                          <span className="text-xs text-[color:var(--color-muted)] font-mono ml-2">
+                            {captain.position}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* SPONSORS */}
+      <section className="py-20 bg-white border-y border-black/5">
+        <div className="container-x">
+          <div className="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)] mb-3">
+            Sponsors
+          </div>
+          <h2 className="font-display text-3xl md:text-5xl font-bold mb-12">
+            Made possible by.
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {club.gallery.slice(0, 8).map((src, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 items-center">
+            {club.sponsors.map((s) => (
               <div
-                key={src}
-                className={`relative overflow-hidden rounded-xl bg-black/5 ${
-                  i === 0 || i === 5 ? "col-span-2 aspect-[2/1]" : "aspect-square"
-                }`}
+                key={s.name}
+                className="relative aspect-square bg-[color:var(--color-surface)] rounded-2xl border border-black/5 p-6 flex items-center justify-center"
               >
                 <Image
-                  src={src}
-                  alt=""
+                  src={s.logo}
+                  alt={s.name}
                   fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-contain p-6"
+                  sizes="20vw"
                 />
               </div>
             ))}
@@ -163,17 +266,17 @@ export default function Home() {
       <section className="py-24 bg-[color:var(--color-primary)] text-white">
         <div className="container-x text-center max-w-2xl mx-auto">
           <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Ready to step on the court?
+            Ready to join NUVC?
           </h2>
           <p className="text-lg text-white/70 mb-10">
-            Tryouts for both men's and women's teams run every season. Non-player
-            roles are open year-round.
+            Apply to the Event, PR, or HR department — or step on the court with
+            the men's or women's team.
           </p>
           <Link
             href="/contact"
             className="inline-block px-8 py-4 rounded-full bg-[color:var(--color-accent)] text-[color:var(--color-primary-dark)] font-semibold hover:bg-[color:var(--color-accent-dark)] transition-colors"
           >
-            Explore Ways to Join
+            How to Join
           </Link>
         </div>
       </section>
