@@ -124,7 +124,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
-            {club.tournaments.hosted.slice(0, 3).map((t) => (
+            {club.tournaments.hosted.filter((t) => t.poster).slice(0, 3).map((t) => (
               <article
                 key={t.name}
                 className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden flex flex-col"
